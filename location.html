@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HTML5 Geolocation</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function showPosition(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(function(position){
+                var positionInfo = position.coords.latitude + "-" + position.coords.longitude;
+                document.getElementById("result").innerHTML = positionInfo;
+                saveData(positionInfo);
+            });
+
+
+
+        } else{
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    }
+    function saveData(positionInfo) {
+    alert("in save");
+
+	    $.ajax({
+		    url: 'http://rohit.milestoneinfosoft.com/frmlocs1.aspx?a='+positionInfo,
+		    type: 'GET',
+		    contentType: 'application/text',
+		    success: function(){
+		       alert('Saved');
+		    },
+		    error: function(){
+		        alert('error');
+		    }
+});
+};
+
+</script>
+
+</head>
+<body>
+    <div id="result">
+        <!--Position information will be inserted here-->
+    </div>
+    <button type="button" onclick="showPosition();">Show Position</button>
+</body>
+</html>
